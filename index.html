@@ -3,11 +3,52 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" href="map_icon.svg" type="image/x-icon" />
     <title>Map coordinates</title>
   </head>
-  <body>
-    <main class="min-h-screen">Map</main>
+  <body class="h-screen">
+    <main class="grid grid-rows-12 h-full">
+      <section class="row-span-2 sm:row-span-1 flex items-end">
+        <form
+          id="coords-form"
+          class="grid grid-rows-3 sm:grid-cols-7 sm:grid-rows-1 p-4 gap-2 w-full max-w-[1024px] mx-auto"
+        >
+          <input
+            type="number"
+            placeholder="Latitude"
+            name="latitude"
+            id="lat"
+            class="outline-black outline-offset-4 border-gray-400 border rounded-md text-black px-2 focus:border-black transition-colors duration-200 sm:col-span-3"
+          />
+          <input
+            type="number"
+            placeholder="Longitude"
+            name="longitude"
+            id="lng"
+            class="outline-black outline-offset-4 border-gray-400 border rounded-md text-black px-2 focus:border-black transition-colors duration-200 sm:col-span-3"
+          />
+          <button
+            class="bg-black rounded-md text-white px-3 py-2 cursor-pointer outline-black outline-offset-2 disabled:bg-gray-400 transition-colors duration-300 disabled:cursor-not-allowed"
+            id="submit-btn"
+            type="submit"
+            disabled
+          >
+            <i class="fa-solid fa-copy"></i>
+          </button>
+        </form>
+      </section>
+      <section class="row-span-10 sm:row-span-11 rounded-t-xl overflow-hidden">
+        <div class="h-full w-full" id="map"></div>
+      </section>
+    </main>
     <script type="module" src="src/main.js"></script>
   </body>
 </html>
