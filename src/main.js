@@ -13,6 +13,11 @@ const submitBtn = document.querySelector("#submit-btn");
  * Leaflet map
  */
 let marker = null;
+const markerIcon = L.divIcon({
+  className: "bg-transparent text-red-700",
+  html: '<i class="fa-solid fa-location-dot text-3xl"></i>',
+  iconSize: [22, 32],
+});
 
 const map = L.map("map").setView([57.710083, 11.9727685], 11);
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
@@ -33,7 +38,7 @@ const setLatLng = (lat, lng) => {
 const addMarker = (lat, lng) => {
   if (marker) map.removeLayer(marker);
 
-  marker = L.marker([lat, lng]).addTo(map);
+  marker = L.marker([lat, lng], { icon: markerIcon }).addTo(map);
 };
 
 const handleMapClick = ({ latlng }) => {
