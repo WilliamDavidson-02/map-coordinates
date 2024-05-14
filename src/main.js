@@ -7,7 +7,16 @@ import { parseCoordValue, toggleClipboardIcon } from "./util";
 const coordsForm = document.querySelector("#coords-form");
 const latElement = coordsForm.querySelector("#lat");
 const lngElement = coordsForm.querySelector("#lng");
-const submitBtn = document.querySelector("#submit-btn");
+const latBtn = document.querySelector("#lat-btn");
+const lngBtn = document.querySelector("#lng-btn");
+
+const validateCoords = () => {
+  const lat = parseCoordValue(latElement);
+  const lng = parseCoordValue(lngElement);
+
+  latBtn.disabled = !lat;
+  lngBtn.disabled = !lng;
+};
 
 /**
  * Leaflet map
@@ -33,6 +42,8 @@ map.addControl(search);
 const setLatLng = (lat, lng) => {
   latElement.value = lat;
   lngElement.value = lng;
+
+  validateCoords();
 };
 
 const addMarker = (lat, lng) => {
@@ -71,31 +82,21 @@ const handleCoordsSubmit = (ev) => {
 
   navigator.clipboard.writeText(`${lat}, ${lng}`);
 
-  toggleClipboardIcon(submitBtn);
+  toggleClipboardIcon(latBtn);
+  toggleClipboardIcon(lngBtn);
 };
 
-const validateCoords = () => {
-  const lat = parseCoordValue(latElement);
-  const lng = parseCoordValue(lngElement);
-
-  const isValid = lat && lng;
-
-  submitBtn.disabled = !isValid;
-
-  return isValid;
-};
-
-const copySingleCoord = (ev) => {
-  const { value } = ev.target;
-
-  if (!validateCoords()) return;
-
+const copySingleCoord = (value, button) => {
   navigator.clipboard.writeText(value);
 
-  toggleClipboardIcon(submitBtn);
+  toggleClipboardIcon(button);
 };
 
 coordsForm.addEventListener("submit", handleCoordsSubmit);
-coordsForm.addEventListener("input", validateCoords);
-latElement.addEventListener("click", (ev) => copySingleCoord(ev));
-lngElement.addEventListener("click", (ev) => copySingleCoord(ev));
+coordsForm.addEventListener("input", () => validateCoords());
+latBtn.addEventListener("click", () =>
+  copySingleCoord(latElement.value, latBtn)
+);
+lngBtn.addEventListener("click", () =>
+  copySingleCoord(lngElement.value, lngBtn)
+);
