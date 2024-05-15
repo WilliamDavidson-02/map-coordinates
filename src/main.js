@@ -11,11 +11,16 @@ const latBtn = document.querySelector("#lat-btn");
 const lngBtn = document.querySelector("#lng-btn");
 
 const validateCoords = () => {
-  const lat = parseCoordValue(latElement);
-  const lng = parseCoordValue(lngElement);
+  let lat = parseCoordValue(latElement);
+  let lng = parseCoordValue(lngElement);
+
+  if (lat < -90 || lat > 90) lat = null;
+  if (lng < -180 || lng > 180) lng = null;
 
   latBtn.disabled = !lat;
   lngBtn.disabled = !lng;
+
+  return lat && lng;
 };
 
 /**
@@ -92,8 +97,18 @@ const copySingleCoord = (value, button) => {
   toggleClipboardIcon(button);
 };
 
+const handleInputChange = () => {
+  if (validateCoords()) {
+    const lat = parseCoordValue(latElement);
+    const lng = parseCoordValue(lngElement);
+
+    addMarker(lat, lng);
+    map.flyTo([lat, lng], 11);
+  }
+};
+
 coordsForm.addEventListener("submit", handleCoordsSubmit);
-coordsForm.addEventListener("input", () => validateCoords());
+coordsForm.addEventListener("input", handleInputChange);
 latBtn.addEventListener("click", () =>
   copySingleCoord(latElement.value, latBtn)
 );
