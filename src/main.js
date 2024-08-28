@@ -37,7 +37,7 @@ const map = L.map("map").setView([57.710083, 11.9727685], 11);
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
 
 const search = new GeoSearchControl({
-  notFoundMessage: "Kan inte hitta den addressen.",
+  notFoundMessage: "Unable to find this address",
   provider: new OpenStreetMapProvider(),
   style: "bar",
 });
@@ -82,8 +82,6 @@ const handleCoordsSubmit = (ev) => {
   // Elements
   const lat = parseCoordValue(latElement);
   const lng = parseCoordValue(lngElement);
-
-  console.log([lat, lng]);
 
   navigator.clipboard.writeText(`${lat}, ${lng}`);
 
