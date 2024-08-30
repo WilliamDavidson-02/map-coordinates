@@ -131,6 +131,7 @@ function darkMode(button){
     ".moon",
     ".reset",
     ".glass",
+    ".results",
   ]
 
   //If it is already black then return to light mode
