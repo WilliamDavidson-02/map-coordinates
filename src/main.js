@@ -1,7 +1,7 @@
 import * as L from "leaflet";
 import { GeoSearchControl, OpenStreetMapProvider } from "leaflet-geosearch";
-import "leaflet/dist/leaflet.css";
 import "leaflet-geosearch/dist/geosearch.css";
+import "leaflet/dist/leaflet.css";
 import { parseCoordValue, toggleClipboardIcon } from "./util";
 
 const coordsForm = document.querySelector("#coords-form");
@@ -113,3 +113,45 @@ latBtn.addEventListener("click", () =>
 lngBtn.addEventListener("click", () =>
   copySingleCoord(lngElement.value, lngBtn)
 );
+
+/**
+ * Dark mode
+ */
+function darkMode(button){
+
+  const classes = [
+    ".textHolder",
+    ".leaflet-control-zoom-in",
+    ".leaflet-control-zoom-out",
+    ".glass",
+    ".reset",
+    ".leaflet-control-zoom-in",
+    ".leaflet-control-zoom-out",
+    ".text-xl",
+    ".moon",
+    ".reset",
+    ".glass",
+    ".results",
+  ]
+
+  //If it is already black then return to light mode
+  if(button.style.color == "white"){
+    //Elements to white
+    document.body.style.backgroundColor = "white";
+    document.querySelectorAll(classes).forEach(element => {
+      element.style.backgroundColor = "white";
+      element.style.color = "black";
+    });
+    document.getElementsByTagName("form")[1].style.backgroundColor = "white";
+
+  }else{
+    //Elements to black
+    document.body.style.backgroundColor = "hsla(0, 0%, 5%, 1)";
+    document.querySelectorAll(classes).forEach(element => {
+      element.style.backgroundColor = "hsla(0, 0%, 5%, 1)";
+      element.style.color = "white";
+    });
+    document.getElementsByTagName("form")[1].style.backgroundColor = "hsla(0, 0%, 5%, 1)";
+  }
+}
+window.darkMode = darkMode;
